@@ -1,4 +1,4 @@
-package com.example.pokeapikotlin.ui
+package com.example.pokeapikotlin.ui.pokemonList
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -60,7 +60,7 @@ class PokemonListFragment : Fragment() {
     }
 
     private fun setUpRecyclerView(list: MutableList<PokemonModel>){
-        adapterPokemon = PokemonListAdapter(items = list, context = requireContext())
+        adapterPokemon = PokemonListAdapter(items = list, context = this)
 
         binding.rvPokemonList.apply {
             adapter = adapterPokemon

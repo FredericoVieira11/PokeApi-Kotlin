@@ -1,20 +1,21 @@
-package com.example.pokeapikotlin.ui
+package com.example.pokeapikotlin.ui.pokemonList
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.pokeapikotlin.R
 import com.example.pokeapikotlin.network.model.PokemonModel
+import androidx.navigation.fragment.NavHostFragment.findNavController
 
 class PokemonListAdapter(
     private val items: MutableList<PokemonModel>,
-    private val context: Context
+    private val context: Fragment
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -28,6 +29,13 @@ class PokemonListAdapter(
             is PokemonViewHolder -> {
                 holder.bind(items[position])
             }
+        }
+
+        holder.itemView.setOnClickListener {
+            val name = items[position].name
+
+            val action = PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDescriptionFragment(passingName = name)
+            findNavController(context).navigate(action)
         }
     }
 

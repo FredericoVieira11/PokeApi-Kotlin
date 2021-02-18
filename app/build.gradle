@@ -73,6 +73,7 @@ dependencies {
     annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
 
     //navigation
+    implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'android.arch.navigation:navigation-ui:1.0.0'
 
