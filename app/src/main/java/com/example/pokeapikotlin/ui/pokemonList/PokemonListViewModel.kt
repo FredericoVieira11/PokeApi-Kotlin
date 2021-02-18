@@ -1,4 +1,4 @@
-package com.example.pokeapikotlin.ui
+package com.example.pokeapikotlin.ui.pokemonList
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel

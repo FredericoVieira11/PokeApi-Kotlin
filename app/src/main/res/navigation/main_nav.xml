@@ -7,7 +7,20 @@
 
     <fragment
         android:id="@+id/pokemonListFragment"
-        android:name="com.example.pokeapikotlin.ui.PokemonListFragment"
+        android:name="com.example.pokeapikotlin.ui.pokemonList.PokemonListFragment"
         android:label="fragment_pokemon_list"
-        tools:layout="@layout/fragment_pokemon_list" />
+        tools:layout="@layout/fragment_pokemon_list" >
+        <action
+            android:id="@+id/action_pokemonListFragment_to_pokemonDescriptionFragment"
+            app:destination="@id/pokemonDescriptionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonDescriptionFragment"
+        android:name="com.example.pokeapikotlin.ui.pokemonDescription.PokemonDescriptionFragment"
+        android:label="fragment_pokemon_description"
+        tools:layout="@layout/fragment_pokemon_description">
+        <argument
+            android:name="passing_name"
+            app:argType="string" />
+    </fragment>
 </navigation>
