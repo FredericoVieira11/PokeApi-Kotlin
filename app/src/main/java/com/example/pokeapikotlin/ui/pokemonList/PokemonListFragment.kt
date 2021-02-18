@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pokeapikotlin.MainActivity
+import com.example.pokeapikotlin.R
 import com.example.pokeapikotlin.databinding.FragmentPokemonListBinding
 import com.example.pokeapikotlin.network.model.PokemonModel
 import com.example.pokeapikotlin.network.resource.Status
+import com.example.pokeapikotlin.utils.showAlert
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,6 +38,7 @@ class PokemonListFragment : Fragment() {
             it?.let { resource ->
                 when(resource.status) {
                     Status.SUCCESS -> {
+                        hideProgressBar()
                         val listOfPokemons: MutableList<PokemonModel> = mutableListOf()
 
                         if (!it.data?.body()?.results.isNullOrEmpty()) {
@@ -49,10 +53,15 @@ class PokemonListFragment : Fragment() {
                         }
                     }
                     Status.ERROR -> {
-                        print("ERRO AO RESGATAR DADOS DA API !!!!!!!!!!!!! ERRO !!!!!!!")
+                        hideProgressBar()
+                        showAlert(
+                            activity,
+                            binding.root,
+                            getString(R.string.error_getting_data)
+                        )
                     }
                     Status.LOADING -> {
-                        print("LOADING ...")
+                        showProgressBar()
                     }
                 }
             }
@@ -67,6 +76,14 @@ class PokemonListFragment : Fragment() {
             adapterPokemon.notifyDataSetChanged()
             layoutManager = LinearLayoutManager(activity)
         }
+    }
+
+    private fun showProgressBar() {
+        (requireActivity() as MainActivity).showProgressBar()
+    }
+
+    private fun hideProgressBar() {
+        (requireActivity() as MainActivity).hideProgressBar()
     }
 
 }
