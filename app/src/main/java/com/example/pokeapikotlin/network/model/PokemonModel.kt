@@ -7,12 +7,9 @@ data class PokemonModel(
     val name: String,
     val url: String
 ) {
-    fun getNumberFromUrl(urlStr: String?): Int? {
-        val p: Pattern = Pattern.compile("pokemon/(\\d+)")
-        val m: Matcher = p.matcher(urlStr)
-        return if (m.find()) {
-            m.group(1).toInt()
-        } else null
+    fun getNumber(): String{
+        val myArray: MutableList<String> = url.split("https://pokeapi.co/api/v2/pokemon/").toMutableList()
+        val test = myArray[1].split("/")
+        return test[0]
     }
-
 }

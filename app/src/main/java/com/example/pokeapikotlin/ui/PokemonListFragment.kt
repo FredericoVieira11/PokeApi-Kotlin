@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokeapikotlin.databinding.FragmentPokemonListBinding
 import com.example.pokeapikotlin.network.model.PokemonModel
 import com.example.pokeapikotlin.network.resource.Status
@@ -17,6 +18,7 @@ class PokemonListFragment : Fragment() {
 
     private lateinit var binding: FragmentPokemonListBinding
     private lateinit var viewModel: PokemonListViewModel
+    private lateinit var adapterPokemon: PokemonListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +45,7 @@ class PokemonListFragment : Fragment() {
                                 )
                                 listOfPokemons.add(listOfItems)
                             }
+                            setUpRecyclerView(listOfPokemons)
                         }
                     }
                     Status.ERROR -> {
@@ -54,6 +57,16 @@ class PokemonListFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun setUpRecyclerView(list: MutableList<PokemonModel>){
+        adapterPokemon = PokemonListAdapter(items = list, context = requireContext())
+
+        binding.rvPokemonList.apply {
+            adapter = adapterPokemon
+            adapterPokemon.notifyDataSetChanged()
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 
 }

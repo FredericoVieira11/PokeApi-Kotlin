@@ -15,7 +15,7 @@ class PokemonListViewModel @ViewModelInject constructor(
     fun getPokemonList() = liveData(Dispatchers.IO){
         emit(Resource.loading(data = null))
         try {
-            emit(Resource.success(data = repository.getPokemonList(limit = 20, offset = 0)))
+            emit(Resource.success(data = repository.getPokemonList(limit = 10, offset = 20)))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
         }
