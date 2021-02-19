@@ -1,6 +1,7 @@
 package com.example.pokeapikotlin.di
 
 import com.example.pokeapikotlin.network.ApiService
+import com.example.pokeapikotlin.network.WebHookService
 import com.example.pokeapikotlin.utils.Utils
 import dagger.Module
 import dagger.Provides
@@ -27,6 +28,21 @@ object AppModule {
     @Provides
     fun provideApiService(): ApiService {
         return provideRetrofitInit().create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofitInitWebHook(): Retrofit{
+        return Retrofit.Builder()
+                .baseUrl(Utils.WEBHOOK_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiServiceWebHook(): WebHookService {
+        return provideRetrofitInitWebHook().create(WebHookService::class.java)
     }
 
 }
